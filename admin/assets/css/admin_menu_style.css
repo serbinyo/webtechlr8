@@ -1,0 +1,87 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 5, 2017, 11:12:11 PM
+    Author     : Serba
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #F1F1F1 url(../../../public/assets/img/img01_n.gif) repeat-x left top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #787878;
+}
+
+nav {
+    width: 700px;
+    height: 60px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+nav>ul {
+    margin: 0 auto;
+    padding: 20px 0px 0px 0px;
+    list-style: none;
+    line-height: normal;
+}
+
+nav>ul>li {
+    float: left;
+    position:relative;
+    background: url(../../../public/assets/img/img02.jpg) no-repeat left top;
+}
+
+nav>ul>li>a {
+    display: block;
+    width: 130px;
+    height: 30px;
+    margin-right: 1px;
+    padding: 9px 0px 0px 0px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    color: #FFFFFF;
+
+}
+
+nav>ul>li>ul {
+    position:absolute;
+    top:39px;
+    left:0;
+    border:1px solid #dedede;
+    background:#f1f1f1;
+    list-style-type:none;
+    width:200px;
+    padding:10px 20px;
+
+}
+
+nav>ul>li>ul>li {
+    margin-bottom:10px;
+}
+
+nav>ul>li>ul>li>a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+}
+
+
+nav a:hover {
+    text-decoration: none;
+    color: #BEC6F1;
+}
+
+header {
+    width: 980px;
+    height: 280px;
+    margin: 0 auto;
+    padding: 0px;
+    background: url(../../../public/assets/img/img_main_admin.jpg) no-repeat left top;
+}

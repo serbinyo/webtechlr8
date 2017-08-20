@@ -1,0 +1,40 @@
+/*
+Севастопольский государственный университет
+Лабораторный практикум по дисциплине 
+Web технологии
+Выполнил ст.гр ИС31б-з
+Сербин Александр Александрович
+2017 год
+*/
+
+.img {
+	cursor:pointer;
+}
+
+#bg-layer {
+	position:fixed;
+	z-index:10;
+	left:0;
+	top:0;
+	right:0;
+	bottom:0;
+	background:#000;
+	opacity:0.4;
+}
+
+#big-image {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width:700px;
+	z-index:20;
+	position:fixed;
+	padding:2px;
+	border:3px solid #efefef;
+	background:#fff;
+	border-radius:9px;
+}
+
+#big-image img {
+	width:100%;
+}

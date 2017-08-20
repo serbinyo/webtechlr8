@@ -1,0 +1,347 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 5, 2017, 10:30:36 PM
+    Author     : Serba
+*/
+
+.login_form_container{
+    margin: 5px 0 10px;
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.blog_alert_container{
+    margin: 20px auto;
+    padding: 5px 0;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 11px;
+    background:#ed8080;
+    color: #000000;
+    width: 40%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #F1F1F1;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #787878;
+}
+
+#wrapper {
+    /*	width: 980px;*/
+    margin: 0 auto;
+    padding: 0;
+}
+
+main {
+    width: 940px;
+    margin: 0 auto;
+    padding: 10px 20px 30px 20px;
+    background: #FFFFFF;
+}
+
+section {
+    margin:0 0 0 20px ;
+}
+
+section img{
+    margin: 0 20px 0 0;
+}
+
+section h1, section h2, section h3 {
+    color: #000000;
+}
+
+#current-date {
+    text-align:right;
+}
+
+#hobby-nav {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#hobby-nav a{
+    color: #000000;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#hobby-nav a:hover {
+    color: blue;
+}
+
+footer {
+    height: 50px;
+    padding: 10px 0 15px;
+    background: #ECECEC;
+    border-top: 1px solid #DEDEDE;
+}
+
+footer p {
+    margin: 0;
+    padding-top: 20px;
+    text-align: center;
+    color: #000000;
+}
+
+.table-study {
+    width: 100%;
+    font-size: 14px;
+    color: #000000;
+    background: #000000;
+}
+
+.table-study td {
+    background: #fff;
+    text-align: center;
+    vertical-align:top;
+}
+
+.table-study td,.table-study th {
+    padding: 2px 8px;
+}
+
+.table-study td a {
+    text-decoration:none;
+    color:#000000;
+}
+
+.table-study td a:hover {
+    color:blue;
+}
+
+.table-study td.tdleft {
+    text-align: left;
+}
+
+.table-study .topic td{
+    background: rgb(100, 149, 237);
+}
+
+.table-photo {
+    width: 100%;
+}
+
+.table-photo img{
+    width: 96%;
+    border: 3px solid #808080;
+}
+
+a.stad_photo:hover img{
+    border: 3px solid #00BFFF;
+}
+
+.form-group {
+    margin:8px 0;
+    padding-bottom:8px;
+}
+
+.control-label {
+    width:25%;
+    display:block;
+    float:left;
+    font-weight: bold;	
+}
+
+.form-element {
+    width:50%;
+    display:block;
+    float:left;
+}
+
+.form-group .inp {
+    width:100%;
+    padding:5px 7px;
+    box-sizing:border-box;
+}
+
+.form-group .clr {
+    clear:both;
+}
+
+.form-group input[type="submit"],
+.form-group input[type="reset"] {
+    padding:7px 20px;
+    cursor:pointer;
+}
+
+.table-history {
+    width: 100%;
+    text-align: left;
+
+}
+
+#tbody-all, #tbody-session {
+    color:blue;
+}
+
+.error{
+    color: red;
+}
+
+.form-btn {
+    width: 100%;
+    display: block;
+    border: 0;
+    padding: 10px;
+    background-color: #39be6c;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.form-btn-clear {
+    width: 100%;
+    display: block;
+    border: 0;
+    padding: 10px;
+    background-color: #efa0a0;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.form-btn:hover {
+    background-color: #33aa61;
+    cursor: pointer;
+}
+
+.form-btn-clear:hover {
+    background-color: #ed8080;
+    cursor: pointer;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #efa0a0;
+    color: #cc5555;
+    text-align: center;
+}
+.message:empty {
+    display: none;
+}
+
+.blurred {
+    -webkit-filter: blur(7px);
+    -webkit-transition: all 2s;
+}
+
+#mybutton {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: rgb(100, 149, 237);
+    box-shadow: 0 -3px rgb(65, 105, 225) inset;
+    transition: 0.2s;
+} 
+#mybutton:hover { background: rgb(65, 105, 225); }
+
+.blog_addcontainer {
+    margin: 20px 0;
+    padding: 5px 0;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 11px;
+    color: #000000;
+    background: #FFFFFF; /* для IE*/
+}
+
+.blog_container {
+    margin: 20px 0;
+    padding: 5px 0;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 11px;
+    background: rgb(100, 149, 237);
+    color: #000000;
+}
+
+.blog_container .blog_title{
+    color: white;
+}
+
+.blog_container .blog_image{
+    margin-bottom: 1px;
+    padding: 10px 5px;
+    background: #DEDEDE; 
+}
+
+.blog_container .blog_body{
+    margin-bottom: 1px;
+    padding: 10px 5px;
+    background: #F1F1F1; 
+}
+
+.blog_container .blog_date{
+    margin-bottom: 1px;
+    padding: 10px 5px;
+    background: #DEDEDE; 
+}
+
+.blog_container .blog_link_container{
+    margin:5px 0;
+    display: inlineblock;
+    width: 100%;
+}
+
+.blog_container a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.blog_container .blog_update_link{
+    float: left; 
+    background: #DEDEDE; 
+    border: 1px solid black; 
+    width: 24%;
+    padding: 2px;
+    margin-left: 24%;
+}
+
+.blog_container .blog_update_link:hover{
+    background: #fcefa1; 
+}
+
+.blog_container .blog_delete_link{
+    float: right; 
+    width: 24%;
+    background: #DEDEDE; 
+    border: 1px solid black; 
+    padding: 2px; 
+    margin-right: 24%;
+}
+
+.blog_container .blog_delete_link:hover{
+    background: #ffcaca;
+}
+
+.form-fileload {
+    width: 50%;
+    margin: 20px 0;
+    padding: 5px 5px;
+    border: 1px solid black;
+    border-radius: 11px;
+    color: #000000;  
+}
+
+.form-fileload input{
+    margin: 5px 0 10px 25px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    box-shadow: 0 -3px rgb(65, 105, 225) inset;
+    transition: 0.2s;
+}
