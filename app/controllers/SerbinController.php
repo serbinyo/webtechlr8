@@ -96,5 +96,9 @@ class SerbinController {
     public function contentAction() {
         include ADMIN . "/content.php";
     }
+    
+    public function logincheckAction() {
+        include CORE . "/logincheck.php";
+    }    
 
 }
