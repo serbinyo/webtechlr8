@@ -1,35 +1,35 @@
-<?php
-$idForUpdate = (int) $_GET['id'];
-$updateBlog = BlogModel::find($idForUpdate);
-
-
-if (isset($_POST['action']) && $_POST['action'] == 'update_row') {
-    $blogValidator = new BlogValidation();
-    $blogValidator->blogValidate();
-    if ($blogValidator->ValidateForm()) {
-        update($updateBlog);
-        ?>
-        <script type="text/javascript">window.opener.location.reload(); window.close();</script>
-        <?php
-    } else {
-        $errors = true;
-    }
-}
-
-function update($updateBlog) {
-    $title = htmlspecialchars(trim($_POST['title']));
-    $image = htmlspecialchars(trim($_POST['image']));
-    $body = htmlspecialchars(trim($_POST['body']));
-
-    $updateBlog->title = $title;
-    $updateBlog->image = $image;
-    $updateBlog->body = $body;
-    $updateBlog->save();
-}
-?>
 <!DOCTYPE html>
 <html>
     <head>
+        <?php
+        $idForUpdate = (int) $_GET['id'];
+        $updateBlog = BlogModel::find($idForUpdate);
+
+
+        if (isset($_POST['action']) && $_POST['action'] == 'update_row') {
+            $blogValidator = new BlogValidation();
+            $blogValidator->blogValidate();
+            if ($blogValidator->ValidateForm()) {
+                update($updateBlog);
+                ?>
+                <script type="text/javascript">window.opener.location.reload(); window.close();</script>
+                <?php
+            } else {
+                $errors = true;
+            }
+        }
+
+        function update($updateBlog) {
+            $title = htmlspecialchars(trim($_POST['title']));
+            $image = htmlspecialchars(trim($_POST['image']));
+            $body = htmlspecialchars(trim($_POST['body']));
+
+            $updateBlog->title = $title;
+            $updateBlog->image = $image;
+            $updateBlog->body = $body;
+            $updateBlog->save();
+        }
+        ?>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Редактор публикации. Сайт Сербина Александра</title>
         <link rel="stylesheet" type="text/css" href="../admin/assets/css/admin_style.css">
