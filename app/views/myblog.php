@@ -64,7 +64,34 @@ Functions::add_guest_statistic();
                     echo "<div class='blog_image'><img src='" . $blog['image'] . "'  width='250' alt='" . $blog['image'] . "'/></div>";
                     echo "<div class='blog_body'>" . $blog['body'] . "</div>";
                     echo "<div class='blog_date'>Дата публикации: " . $blog['date'] . "</div>";
-                    echo '</div><br>';
+                    echo '</div>';
+                    //дальше вывод для авторизованных пользователей
+                    if (Functions::findUser()) {
+                        echo '<span>Имя: </span><br>
+                        <input type="text" id="name"><br>
+                        <span>Комментарий</span><br>
+                        <textarea id="comment" cols="30" rows="10"></textarea><br>
+                        <button id="button">Отправить</button>';
+                        ?>
+                        <script>
+                            var button = document.getElementById('button'),
+                                    xmlhttp = new XMLHttpRequest();
+                            button.addEventListener('click', function () {
+                                var name = document.getElementById('name').value.replace(/<[^>]+>/g, ''),
+                                        comment = document.getElementById('comment').value.replace(/<[^>]+>/g, '');
+                                if (name === '' || comment === '') {
+                                    alert('Заполните все поля!');
+                                    return false;
+                                }
+                                xmlhttp.open('post', 'addcomment', true);
+                                xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                xmlhttp.send("name=" + encodeURIComponent(name) + "&comment=" + encodeURIComponent(comment));
+                                document.getElementById('name').value='';
+                                document.getElementById('comment').value='';
+                            });
+                        </script>
+                        <?php
+                    }
                 }
                 // выводим ссылки на страницы:
                 $query = "SELECT count(*) FROM blog";

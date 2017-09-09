@@ -99,6 +99,9 @@ class SerbinController {
     
     public function logincheckAction() {
         include CORE . "/logincheck.php";
-    }    
-
+    }
+    
+    public function addcommentAction() {
+        include CORE . "/addcomment.php";
+    }
 }
