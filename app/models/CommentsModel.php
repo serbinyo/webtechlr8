@@ -10,6 +10,7 @@ class CommentsModel extends BaseActiveRecord {
 
 // список полей таблицы
     public $id;
+    public $blogid;
     public $author;
     public $body;
     public $date;
@@ -20,8 +21,9 @@ class CommentsModel extends BaseActiveRecord {
         if (!$this->author || !$this->body) {
             return 0;
         }
-        $sql = "INSERT INTO " . static::$table . " VALUES (null, :author, :body, :date)";
+        $sql = "INSERT INTO " . static::$table . " VALUES (null, :blogid, :author, :body, :date)";
         $stmt = self::$pdo->prepare($sql);
+        $stmt->bindParam(':blogid', $this->blogid);
         $stmt->bindParam(':author', $this->author);
         $stmt->bindParam(':body', $this->body);
         $this->date = date("Y-m-d H:i:s");
@@ -34,6 +36,7 @@ class CommentsModel extends BaseActiveRecord {
         $sql = "UPDATE " . static::$table . " SET title = :author, body = :body, date = :date WHERE id = :id";
         $stmt = self::$pdo->prepare($sql);
         $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':blogid', $this->blogid);
         $stmt->bindParam(':author', $this->author);
         $stmt->bindParam(':body', $this->body);
         $this->date = date("Y-m-d H:i:s");
