@@ -20,6 +20,7 @@ function logout_form() {
     echo "<div class='login_form_container'>
                         <form action='index' method='post'>
                         <input type='hidden' name='action' value='logout' >
+                        Вход выполнен 
                         <input type='submit' value='Выйти'>
                         </form>
                         </div>";
@@ -109,8 +110,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'logout') {
                                 </td>
                                 <td>
                                     <h3>Сербин Александр Александрович</h3>
-                                    <p><strong>группа: ИС/б-31-з</strong></p>
-                                    <p>Лабораторная работа №7 <strong>&quot;Исследование механизма сессий в PHP.&quot;</strong></p>
+                                    <p><strong>группа: ИС/б-41-з</strong></p>
+                                    <p>Лабораторная работа №8 <strong>&quot;Исследование возможностей асинхронного взаимодействия с сервером. Технология AJAX.&quot;</strong></p>
                                 </td>
                             </tr>
                         </tbody>

@@ -52,12 +52,14 @@ Functions::add_guest_statistic();
                 $query = "SELECT * FROM blog ORDER BY date DESC LIMIT $start, $per_page";
 
                 BaseActiveRecord::check_connection();
-                
-                if (Functions::findUser()) {
+                $addComments = false;
+                $userid = Functions::findUser();
+                if (!empty($userid)) {
                     $addComments = true;
                     $btnIndex = 1;
+                    $user = UsersModel::find($userid);
                 }
-                
+
                 foreach (BaseActiveRecord::$pdo->query($query) as $i => $blog) {
 
                     if (empty($blog['image'])) {
@@ -72,30 +74,28 @@ Functions::add_guest_statistic();
                     echo '</div>';
                     //дальше вывод для авторизованных пользователей
                     if ($addComments) {
-                        echo "<span>Имя: </span><br>
-                        <input type='text' id='name$btnIndex'><br>
-                        <span>Комментарий</span><br>
+                        echo "<span>Комментарий</span><br>
                         <textarea id='comment$btnIndex' cols='30' rows='10'></textarea><br>
                         <button id='button$btnIndex'>Отправить</button>";
                         ?>
                         <script>
-                                var btnName = 'button<?php echo $btnIndex ?>',
+                            var btnName = 'button<?php echo $btnIndex ?>',
                                     button<?php echo $btnIndex ?> = document.getElementById(btnName),
                                     xmlhttp = new XMLHttpRequest();
-                                button<?php echo $btnIndex ?>.addEventListener('click', function () {
-                                    var name<?php echo $btnIndex ?> = document.getElementById('name<?php echo $btnIndex ?>').value.replace(/<[^>]+>/g, ''),
-                                            comment<?php echo $btnIndex ?> = document.getElementById('comment<?php echo $btnIndex ?>').value.replace(/<[^>]+>/g, '');
-                                    if (name<?php echo $btnIndex ?> === '' || comment<?php echo $btnIndex ?> === '') {
-                                        alert('Заполните все поля!');
-                                        return false;
-                                    } else {
-                                        xmlhttp.open('post', 'addcomment', true);
-                                        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                        xmlhttp.send("name=" + encodeURIComponent(name<?php echo $btnIndex ?>) + "&comment=" + encodeURIComponent(comment<?php echo $btnIndex ?>));
-                                        document.getElementById('name<?php echo $btnIndex ?>').value = '';
-                                        document.getElementById('comment<?php echo $btnIndex ?>').value = '';
-                                    }
-                                });
+                            button<?php echo $btnIndex ?>.addEventListener('click', function () {
+                                var name<?php echo $btnIndex ?> = '<?php echo $user->login ?>',
+                                        comment<?php echo $btnIndex ?> = document.getElementById('comment<?php echo $btnIndex ?>').value.replace(/<[^>]+>/g, ''),
+                                        blogid<?php echo $btnIndex ?> = <?php echo $blog['id'] ?>;
+                                if (name<?php echo $btnIndex ?> === '' || comment<?php echo $btnIndex ?> === '') {
+                                    alert('Заполните все поля!');
+                                    return false;
+                                } else {
+                                    xmlhttp.open('post', 'addcomment', true);
+                                    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                    xmlhttp.send("name=" + encodeURIComponent(name<?php echo $btnIndex ?>) + "&comment=" + encodeURIComponent(comment<?php echo $btnIndex ?>) + "&blogid=" + encodeURIComponent(blogid<?php echo $btnIndex ?>));
+                                    document.getElementById('comment<?php echo $btnIndex ?>').value = '';
+                                }
+                            });
 
                         </script>               
                         <?php
