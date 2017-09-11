@@ -104,6 +104,22 @@ Functions::add_guest_statistic();
                                     xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                                     xmlhttp.send("name=" + encodeURIComponent(name<?php echo $btnIndex ?>) + "&comment=" + encodeURIComponent(comment<?php echo $btnIndex ?>) + "&blogid=" + encodeURIComponent(blogid<?php echo $btnIndex ?>));
                                     document.getElementById('comment<?php echo $btnIndex ?>').value = '';
+                                    //выведем комментарии
+                                    xmlhttp.onreadystatechange = function () {
+                                        if (xmlhttp.readyState == 4) {
+                                            if (xmlhttp.status == 200) {
+                                                var data = xmlhttp.responseText;
+                                                if (data !== 'empty') {
+                                                    data = JSON.parse(data);
+                                                    for (var i = 0; i < data.length; i++) {
+                                                        alert(data[i]);
+                                                    }
+                                                } else {
+                                                    alert("empty");
+                                                }
+                                            }
+                                        }
+                                    };
                                 }
                             });
 
@@ -111,6 +127,8 @@ Functions::add_guest_statistic();
                                 var x = document.getElementById('cmntblock<?php echo $btnIndex ?>');
                                 x.style.display = 'block';
                             });
+
+
                         </script>               
                         <?php
                         $btnIndex++;
