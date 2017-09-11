@@ -51,15 +51,16 @@ Functions::add_guest_statistic();
                 // выполняем запрос и выводим записи
                 $query = "SELECT * FROM blog ORDER BY date DESC LIMIT $start, $per_page";
 
-                BaseActiveRecord::check_connection();
-                $addComments = false;
+
+                $addCommentsOpt = false;
                 $userid = Functions::findUser();
                 if (!empty($userid)) {
-                    $addComments = true;
+                    $addCommentsOpt = true;
                     $btnIndex = 1;
                     $user = UsersModel::find($userid);
                 }
 
+                BaseActiveRecord::check_connection();
                 foreach (BaseActiveRecord::$pdo->query($query) as $i => $blog) {
 
                     if (empty($blog['image'])) {
@@ -71,17 +72,26 @@ Functions::add_guest_statistic();
                     echo "<div class='blog_image'><img src='" . $blog['image'] . "'  width='250' alt='" . $blog['image'] . "'/></div>";
                     echo "<div class='blog_body'>" . $blog['body'] . "</div>";
                     echo "<div class='blog_date'>Дата публикации: " . $blog['date'] . "</div>";
-                    echo '</div>';
+                    //находим и выводим комменты
+                    echo "<div class='blog_body'>Комментарии:<hr>";
+                    $cmntqry = "SELECT * FROM comments WHERE blogid = '" . $blog['id'] . "' ORDER BY date DESC";
+                    foreach (BaseActiveRecord::$pdo->query($cmntqry) as $с => $comment) {
+                        echo $comment['date'] . ' ' . $comment['author'] . ' написал: ' . $comment['body'];
+                        echo '<hr>';
+                    }
+
                     //дальше вывод для авторизованных пользователей
-                    if ($addComments) {
-                        echo "<span>Комментарий</span><br>
+                    if ($addCommentsOpt) {
+                        echo "<button id='btnaddcmnt$btnIndex'>Комментировать</button><br>
+                        <div id='cmntblock$btnIndex' style='display: none'>
                         <textarea id='comment$btnIndex' cols='30' rows='10'></textarea><br>
-                        <button id='button$btnIndex'>Отправить</button>";
+                        <button id='button$btnIndex'>Отправить</button></div>";
                         ?>
                         <script>
-                            var btnName = 'button<?php echo $btnIndex ?>',
-                                    button<?php echo $btnIndex ?> = document.getElementById(btnName),
+                            var button<?php echo $btnIndex ?> = document.getElementById('button<?php echo $btnIndex ?>'),
+                                    btnaddcmnt<?php echo $btnIndex ?> = document.getElementById('btnaddcmnt<?php echo $btnIndex ?>'),
                                     xmlhttp = new XMLHttpRequest();
+
                             button<?php echo $btnIndex ?>.addEventListener('click', function () {
                                 var name<?php echo $btnIndex ?> = '<?php echo $user->login ?>',
                                         comment<?php echo $btnIndex ?> = document.getElementById('comment<?php echo $btnIndex ?>').value.replace(/<[^>]+>/g, ''),
@@ -97,10 +107,15 @@ Functions::add_guest_statistic();
                                 }
                             });
 
+                            btnaddcmnt<?php echo $btnIndex ?>.addEventListener('click', function () {
+                                var x = document.getElementById('cmntblock<?php echo $btnIndex ?>');
+                                x.style.display = 'block';
+                            });
                         </script>               
                         <?php
                         $btnIndex++;
                     }
+                    echo '</div></div>';
                 }
                 // выводим ссылки на страницы:
                 $query = "SELECT count(*) FROM blog";
