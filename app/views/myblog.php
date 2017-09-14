@@ -9,6 +9,15 @@ Functions::add_guest_statistic();
         <title>Мой блог. Сайт Сербина Александра</title>
         <link rel="stylesheet" type="text/css" href="../../public/assets/css/style.css" />
         <script type="text/javascript" src="../../public/assets/js/main.js"></script>
+        <script>
+            function drawComments(i, comment) {
+                for (j = 0; j < comment.length; j++) {
+                    document.getElementById('commentsblock' + i).innerHTML += comment[j];
+                    document.getElementById('commentsblock' + i).innerHTML += '<hr>';
+                }
+                
+            }
+        </script>
     </head>
     <body>
         <div id="wrapper">
@@ -51,12 +60,12 @@ Functions::add_guest_statistic();
                 // выполняем запрос и выводим записи
                 $query = "SELECT * FROM blog ORDER BY date DESC LIMIT $start, $per_page";
 
-
+                $index = 1;
                 $addCommentsOpt = false;
                 $userid = Functions::findUser();
                 if (!empty($userid)) {
                     $addCommentsOpt = true;
-                    $btnIndex = 1;
+
                     $user = UsersModel::find($userid);
                 }
 
@@ -73,37 +82,50 @@ Functions::add_guest_statistic();
                     echo "<div class='blog_body'>" . $blog['body'] . "</div>";
                     echo "<div class='blog_date'>Дата публикации: " . $blog['date'] . "</div>";
                     //находим и выводим комменты
-                    echo "<div class='blog_body'>Комментарии:<hr>";
+                    echo "<div class='blog_body'>Комментарии:<hr><div id='commentsblock$index'></div>";
                     $cmntqry = "SELECT * FROM comments WHERE blogid = '" . $blog['id'] . "' ORDER BY date DESC";
+                    ?>
+                    <script>
+                        var data = [];
+                    </script>  
+                    <?php
                     foreach (BaseActiveRecord::$pdo->query($cmntqry) as $с => $comment) {
-                        echo $comment['date'] . ' ' . $comment['author'] . ' написал: ' . $comment['body'];
-                        echo '<hr>';
-                    }
-
-                    //дальше вывод для авторизованных пользователей
-                    if ($addCommentsOpt) {
-                        echo "<button id='btnaddcmnt$btnIndex'>Комментировать</button><br>
-                        <div id='cmntblock$btnIndex' style='display: none'>
-                        <textarea id='comment$btnIndex' cols='30' rows='10'></textarea><br>
-                        <button id='button$btnIndex'>Отправить</button></div>";
+                        $cmnt = $comment['date'] . ' ' . $comment['author'] . ' написал: ' . $comment['body'];
                         ?>
                         <script>
-                            var button<?php echo $btnIndex ?> = document.getElementById('button<?php echo $btnIndex ?>'),
-                                    btnaddcmnt<?php echo $btnIndex ?> = document.getElementById('btnaddcmnt<?php echo $btnIndex ?>'),
+                            data.push('<?php echo $cmnt; ?>');
+                        </script>               
+                        <?php
+                    }
+                    ?>
+                    <script>
+                        drawComments('<?php echo $index; ?>', data);
+                    </script>               
+                    <?php
+                    //дальше вывод для авторизованных пользователей
+                    if ($addCommentsOpt) {
+                        echo "<button id='btnaddcmnt$index'>Комментировать</button><br>
+                        <div id='cmntblock$index' style='display: none'>
+                        <textarea id='comment$index' cols='30' rows='10'></textarea><br>
+                        <button id='button$index'>Отправить</button></div>";
+                        ?>
+                        <script>
+                            var button<?php echo $index ?> = document.getElementById('button<?php echo $index ?>'),
+                                    btnaddcmnt<?php echo $index ?> = document.getElementById('btnaddcmnt<?php echo $index ?>'),
                                     xmlhttp = new XMLHttpRequest();
 
-                            button<?php echo $btnIndex ?>.addEventListener('click', function () {
-                                var name<?php echo $btnIndex ?> = '<?php echo $user->login ?>',
-                                        comment<?php echo $btnIndex ?> = document.getElementById('comment<?php echo $btnIndex ?>').value.replace(/<[^>]+>/g, ''),
-                                        blogid<?php echo $btnIndex ?> = <?php echo $blog['id'] ?>;
-                                if (name<?php echo $btnIndex ?> === '' || comment<?php echo $btnIndex ?> === '') {
+                            button<?php echo $index ?>.addEventListener('click', function () {
+                                var name<?php echo $index ?> = '<?php echo $user->login ?>',
+                                        comment<?php echo $index ?> = document.getElementById('comment<?php echo $index ?>').value.replace(/<[^>]+>/g, ''),
+                                        blogid<?php echo $index ?> = <?php echo $blog['id'] ?>;
+                                if (name<?php echo $index ?> === '' || comment<?php echo $index ?> === '') {
                                     alert('Заполните все поля!');
                                     return false;
                                 } else {
                                     xmlhttp.open('post', 'addcomment', true);
                                     xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                    xmlhttp.send("name=" + encodeURIComponent(name<?php echo $btnIndex ?>) + "&comment=" + encodeURIComponent(comment<?php echo $btnIndex ?>) + "&blogid=" + encodeURIComponent(blogid<?php echo $btnIndex ?>));
-                                    document.getElementById('comment<?php echo $btnIndex ?>').value = '';
+                                    xmlhttp.send("name=" + encodeURIComponent(name<?php echo $index ?>) + "&comment=" + encodeURIComponent(comment<?php echo $index ?>) + "&blogid=" + encodeURIComponent(blogid<?php echo $index ?>));
+                                    document.getElementById('comment<?php echo $index ?>').value = '';
                                     //выведем комментарии
                                     xmlhttp.onreadystatechange = function () {
                                         if (xmlhttp.readyState == 4) {
@@ -111,9 +133,10 @@ Functions::add_guest_statistic();
                                                 var data = xmlhttp.responseText;
                                                 if (data !== 'empty') {
                                                     data = JSON.parse(data);
-                                                    for (var i = 0; i < data.length; i++) {
-                                                        alert(data[i]);
-                                                    }
+                                                    document.getElementById('commentsblock' + <?php echo $index; ?>).innerHTML = '';
+                                                    drawComments('<?php echo $index; ?>', data);
+                                                    var x = document.getElementById('cmntblock<?php echo $index ?>');
+                                                    x.style.display = 'none';
                                                 } else {
                                                     alert("empty");
                                                 }
@@ -123,17 +146,17 @@ Functions::add_guest_statistic();
                                 }
                             });
 
-                            btnaddcmnt<?php echo $btnIndex ?>.addEventListener('click', function () {
-                                var x = document.getElementById('cmntblock<?php echo $btnIndex ?>');
+                            btnaddcmnt<?php echo $index ?>.addEventListener('click', function () {
+                                var x = document.getElementById('cmntblock<?php echo $index ?>');
                                 x.style.display = 'block';
                             });
 
 
                         </script>               
                         <?php
-                        $btnIndex++;
                     }
                     echo '</div></div>';
+                    $index++;
                 }
                 // выводим ссылки на страницы:
                 $query = "SELECT count(*) FROM blog";

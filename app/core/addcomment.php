@@ -13,7 +13,7 @@ $new_comment->save();
 $cmntqry = "SELECT * FROM comments WHERE blogid = '$blogid' ORDER BY date DESC";
 BaseActiveRecord::check_connection();
 foreach (BaseActiveRecord::$pdo->query($cmntqry) as $с => $comment) {
-    $r[] = $comment['date'] . ' ' . $comment['author'] . ' написал: ' . $comment['body'] . '<hr>';
+    $r[] = $comment['date'] . ' ' . $comment['author'] . ' написал: ' . $comment['body'];
 }
  if(empty($r)) {
    echo "empty";
