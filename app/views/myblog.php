@@ -148,8 +148,13 @@ Functions::add_guest_statistic();
                             });
 
                             btnaddcmnt<?php echo $index ?>.addEventListener('click', function () {
-                                var x = document.getElementById('cmntblock<?php echo $index ?>');
+                                var x = document.getElementById('cmntblock<?php echo $index ?>'),
+                                css = x.style.display;
+                                if (css == 'none') {
                                 x.style.display = 'block';
+                            }else{
+                                x.style.display = 'none';
+                            }
                             });
 
 

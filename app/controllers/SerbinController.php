@@ -65,6 +65,10 @@ class SerbinController {
         include ADMIN . "/blogupdate.php";
     }
 
+    public function blogupdatenowAction() {
+        include ADMIN . "/blogupdatenow.php";
+    }
+
     public function guestbookAction() {
         include VIEWS . "/guestbook.php";
     }
@@ -96,12 +100,13 @@ class SerbinController {
     public function contentAction() {
         include ADMIN . "/content.php";
     }
-    
+
     public function logincheckAction() {
         include CORE . "/logincheck.php";
     }
-    
+
     public function addcommentAction() {
         include CORE . "/addcomment.php";
     }
+
 }
