@@ -44,9 +44,9 @@
                 }
                 ?>
 
-                <div class="blog_addcontainer">
+                <div id="editablebox" class="blog_addcontainer">
                     <h3>Форма редактирования публикации</h3>
-                    <?php echo '<form action="blogupdate?id=' . $idForUpdate . '" method="post"  class="form">' ?>
+                    <form action='blogupdate?id=<?php echo $idForUpdate ?>' method='post'  class='form'>
                     <input type="hidden" name="action" value="update_row" />
                     <div class="message js-form-message"></div>
 

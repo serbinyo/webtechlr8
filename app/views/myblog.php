@@ -81,6 +81,7 @@ Functions::add_guest_statistic();
                     echo "<div class='blog_image'><img src='" . $blog['image'] . "'  width='250' alt='" . $blog['image'] . "'/></div>";
                     echo "<div class='blog_body'>" . $blog['body'] . "</div>";
                     echo "<div class='blog_date'>Дата публикации: " . $blog['date'] . "</div>";
+                    
                     //находим и выводим комменты
                     echo "<div class='blog_body'>Комментарии:<hr><div id='commentsblock$index'></div>";
                     $cmntqry = "SELECT * FROM comments WHERE blogid = '" . $blog['id'] . "' ORDER BY date DESC";

@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $idForDelete = (int) $_GET['id'];
     $thisblog = BlogModel::find($idForDelete);
@@ -112,7 +111,6 @@ function addNew() {
                 </div>
 
                 <?php
-                
                 // количество записей, выводимых на странице
                 $per_page = 5;
                 // получаем номер страницы
@@ -123,7 +121,7 @@ function addNew() {
 
                 // выполняем запрос и выводим записи
                 $query = "SELECT * FROM blog ORDER BY date DESC LIMIT $start, $per_page";
-                
+
                 BaseActiveRecord::check_connection();
 
                 foreach (BaseActiveRecord::$pdo->query($query) as $i => $blog) {
@@ -138,11 +136,54 @@ function addNew() {
                     echo "<div class='blog_body'>" . $blog['body'] . "</div>";
                     echo "<div class='blog_date'>" . $blog['date'] . "</div>";
                     echo "<div class='blog_link_container'>";
-                    echo '<a class="blog_update_link" href = blogupdate?id=' . $blog['id'] . ' >Редактировать</a>';
+                    echo '<div class="blog_update_link" id="edit'.$blog['id'].'" style="cursor:pointer">Редактировать</div>';
                     echo '<a class="blog_delete_link" href = blogeditor?action=delete&id=' . $blog['id'] . '>Удалить</a>';
                     echo '<div style="clear: left"></div>';
                     echo '</div>';
                     echo '</div><br>';
+                    
+                    //вывод блока редактирования записи
+                    echo "<div id='editablebox".$blog['id']."' class='blog_addcontainer' style='display:block'>
+                    <h3>Форма редактирования публикации</h3>
+                    <form action='blogupdate?id=".$blog['id']."' method='post'  class='form'>
+                    <input type='hidden' name='action' value='update_row' />
+                    <div class='message js-form-message'></div>
+
+                    <div class='form-group'>
+                        <label class='control-label'>Заголовок:*</label>
+                        <div class='form-element'>
+                            <input type='text' class='inp' name='title' id='title' value = '".$blog['title']."' title='Обязательно к заполнению' />
+                        </div>
+                        <div class='clr'></div>
+                    </div>
+
+                    <div class='form-group'>
+                        <label class='control-label'>Ссылка на изображение изображение:</label>
+                        <div class='form-element'>
+                            <input type='text' name='image' class='inp' id='image' value = '".$blog['image']."' title='Не обязательно к заполнению' />
+                        </div>
+                        <div class='clr'></div>
+                    </div>
+
+                    <div class='form-group'>
+                        <label class='control-label'>Основной текст:*</label>
+                        <div class='form-element'>
+                            <textarea name='body' id='title' class='inp' rows='5' title='Обязательно к заполнению'>".$blog['body']."</textarea>
+                        </div>
+                        <div class='clr'></div>
+                    </div>
+
+                    <div class='form-group'>
+                        <label class='control-label'>&nbsp;</label>
+                        <div class='form-element'>
+                            <input type='submit' class='form-btn' value='Отредактировать' />
+                            <input type='reset' id='opener' class='form-btn-clear' value='Очистить форму' />
+                        </div>
+                        <div class='clr'></div>
+                    </div>
+                    </form>
+                </div>";
+
                 }
                 // выводим ссылки на страницы:
                 $query = "SELECT count(*) FROM blog";
